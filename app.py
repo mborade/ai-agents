@@ -48,9 +48,9 @@ class BasicAgent:
     #     to be put in the list is a number or a string.
     #     """
     #     self.agent.prompt_templates["system_prompt"] = self.agent.prompt_templates["system_prompt"] + SYSTEM_PROMPT
-    def __call__(self, question: str) -> str:
+    def __call__(self, task_id:str, question: str) -> str:
         print(f"Agent received question (first 50 chars): {question[:50]}...")
-        fixed_answer = self.agent.run(question)
+        fixed_answer = self.agent.run(task_id, question)
         print(f"Agent returning fixed answer: {fixed_answer}")
         return fixed_answer
 
@@ -116,7 +116,7 @@ def run_and_submit_all( profile: gr.OAuthProfile | None):
             print(f"Skipping item with missing task_id or question: {item}")
             continue
         try:
-            submitted_answer = agent(question_text)
+            submitted_answer = agent(task_id, question_text)
             answers_payload.append({"task_id": task_id, "submitted_answer": submitted_answer})
             results_log.append({"Task ID": task_id, "Question": question_text, "Submitted Answer": submitted_answer})
         except Exception as e:
