@@ -84,7 +84,7 @@ class MyAgent:
         load_dotenv()
         if not llm:
             # llm = ChatOpenAI(model="gpt-4.1", temperature=0, max_retries=2)
-            llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro-preview-05-06", temperature=0, max_tokens=None, timeout=None, max_retries=15) 
+            llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro-preview-05-06", temperature=0, max_tokens=None, timeout=None, max_retries=12) 
             #gemini-2.0-flash, gemini-2.5-pro-preview-05-06
             
             # llm = ChatDeepSeek(
@@ -102,7 +102,7 @@ class MyAgent:
         self.tools = tools
         self.llm = llm.bind_tools(tools)
         # System message
-        self.sys_msg = SystemMessage(content="You are a general AI assistant. I will ask you a question. Report your thoughts, and finish your answer with the following template: FINAL ANSWER: [YOUR FINAL ANSWER].  YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string. Try to use Wikipedia first to get the required information. Skip the questions which requires referring to an attached file, video or audio.")
+        self.sys_msg = SystemMessage(content="You are a general AI assistant. I will ask you a question. Report your thoughts, and finish your answer with the following template: FINAL ANSWER: [YOUR FINAL ANSWER].  YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string. Try to use Wikipedia first to get the required information.")
 
         # Graph
         builder = StateGraph(CustomMessagesState)
@@ -195,7 +195,7 @@ class MyAgent:
             print("received video file")    
             return 'process_video'
         elif any(s in state['messages'][0].content for s in ['.mp3', 'audio']):
-            print("received attached file")    
+            print("received audio file")    
             return 'process_audio'
         elif any(s in state['messages'][0].content for s in['.jpg', 'image']):
             print("received image file")    
