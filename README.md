@@ -7,12 +7,12 @@ Agent generated with [`googleCloudPlatform/agent-starter-pack`](https://github.c
 
 This project is organized as follows:
 
-```
 dspy-agent/
 ├── app/                 # Core application code
 │   ├── agent.py         # Main agent logic
 │   ├── agent_engine_app.py # Agent Engine application logic
 │   └── app_utils/       # App utilities and helpers
+├── residential_property_agent/ # PDF extraction agent module
 ├── tests/               # Unit, integration, and load tests
 ├── Makefile             # Makefile for common commands
 ├── GEMINI.md            # AI-assisted development guide

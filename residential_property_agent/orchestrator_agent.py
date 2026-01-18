@@ -42,4 +42,4 @@ root_agent = Agent(
     before_agent_callback=before_agent_callback
 )
 
-app = App(root_agent=root_agent, name="app")
+app = App(root_agent=root_agent, name="residential_property_agent")
