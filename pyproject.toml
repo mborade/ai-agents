@@ -55,7 +55,7 @@ select = [
 ignore = ["E501", "C901", "B006"] # ignore line too long, too complex
 
 [tool.ruff.lint.isort]
-known-first-party = ["app", "frontend"]
+known-first-party = ["residential_property_agent"]
 
 [tool.mypy]
 disallow_untyped_calls = true
@@ -77,7 +77,7 @@ exclude = [".venv"]
 
 [tool.codespell]
 ignore-words-list = "rouge"
-skip = "./locust_env/*,uv.lock,.venv,./frontend,**/*.ipynb"
+skip = "./locust_env/*,uv.lock,.venv,**/*.ipynb"
 
 
 [build-system]
@@ -90,7 +90,7 @@ pythonpath = "."
 asyncio_default_fixture_loop_scope = "function"
 
 [tool.hatch.build.targets.wheel]
-packages = ["app","frontend"]
+packages = ["residential_property_agent"]
 
 [tool.agent-starter-pack]
 # Generation metadata - enables CLI commands to understand project context

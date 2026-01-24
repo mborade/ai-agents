@@ -2,13 +2,15 @@ import os
 import argparse
 import dspy
 import json
+import logging
 from dotenv import load_dotenv
 from attachments.dspy import Attachments 
 from pydantic import BaseModel, Field
 from typing import List
 
-os.environ["VERTEXAI_LOCATION"] = "us-central1"
-os.environ["VERTEXAI_PROJECT"] = "search-ahmed"
+# Configure logging
+logger = logging.getLogger(__name__)
+
 lm = dspy.LM("vertex_ai/gemini-2.5-pro", temperature=0.1)
 dspy.configure(lm=lm)
 
@@ -55,7 +57,7 @@ class PDFProcessor(dspy.Module):
         
     def forward(self, pdf: Attachments = None, question: str = None):
         # if pdf:
-        print(f"extract pdf {pdf}")
+        logger.info(f"extract pdf {pdf}")
         return self.pdf_extractor(pdf=pdf, question=question)
         # else:
         #     return self.query_handler(question=question)
@@ -66,11 +68,14 @@ def main():
     parser.add_argument("pdf_path", help="Path to PDF file")
     args = parser.parse_args()
     
+    # Ensure logging is configured for CLI usage
+    logging.basicConfig(level=logging.INFO)
+    
     pdf_processor = PDFProcessor()
     pdf = Attachments(args.pdf_path)
     result = pdf_processor(pdf=pdf)
     dspy.inspect_history(n=1)
-    print(result)
+    logger.info(result)
 
 if __name__ == "__main__":
     main()
